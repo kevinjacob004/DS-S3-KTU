@@ -1,0 +1,168 @@
+#include <stdio.h>
+#define Maxsize 4
+int a[120];
+int top=-1;
+void push();
+void pop();
+void display();
+void main()
+{	
+	int n;
+	char a;
+	do{
+	printf("1.push\n");
+	printf("2.Pop\n");
+	printf("3.Display\n");
+	printf("4.Exit\n");
+	printf("Enter your choice:");
+	scanf("%d",&n);
+	switch(n)
+	{
+	case 1:
+		push();
+		break;
+	case 2:
+		pop();
+		break;
+	case 3:
+		display();
+		break;
+	case 4:
+		printf("Exit");
+	default :
+		printf("Invalid Entry");
+		break;}
+	printf("Do you want to continue:");
+	__fpurge(stdin);
+	scanf("%c",&a);}
+	while(a =='Y');
+	
+	}
+void push()
+	{
+	int n;
+	if (top == Maxsize-1)
+		{
+		printf("The stack is full\n");
+		}
+	else
+		{
+		top =top+1;
+		printf("Enter the element to be inserted");
+		scanf("%d",&n);
+		a[top]=n;
+		}
+}
+void pop()
+	{
+	int n;
+	if (top == -1)
+		{
+		printf("The stack is empty\n");
+		}
+	else
+		{
+		n=a[top];
+		top=top-1;
+		}
+	}
+void display()
+	{
+	int n;
+	if (top == -1)
+		{
+		printf("The stack is empty\n");
+		}
+	else
+		{
+		int i=0;
+		printf("The elements inside the stack are\n");
+		while(i<=top)
+		{
+			printf("%d\n",a[i]);
+			i=i+1;
+			}
+		}
+		}
+/*
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:1
+Enter the element to be inserted10
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:1 
+Enter the element to be inserted20
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:1
+Enter the element to be inserted30
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:1
+Enter the element to be inserted40
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:1
+The stack is full
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:3
+The elements inside the stack are
+10
+20
+30
+40
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:2
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:2
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:2
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:2
+Do you want to continue:Y
+1.push
+2.Pop
+3.Display
+4.Exit
+Enter your choice:2
+The stack is empty
+Do you want to continue:N
+*/
+	
+	
+

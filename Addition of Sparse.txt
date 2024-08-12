@@ -1,0 +1,261 @@
+#include <stdio.h>
+void main()
+{
+    int r1,c1,sp1[100][100],i,j,count1=0,k=1,r2,c2,sp2[100][100],count2;
+    printf("Enter no of rows and columns of first matrix:");
+    scanf("%d%d",&r1,&c1);
+    printf("Enter no of rows and columns of second matrix:");
+    scanf("%d%d",&r2,&c2);
+    
+	if(r1==r2 && c1==c2)
+	{		
+		printf("Enter the elements to first matrix\n");
+		for(i=0;i<r1;i++)
+    	{
+      	for(j=0;j<c1;j++)
+         {
+         	scanf("%d",&sp1[i][j]);
+         }
+      }
+    	printf("Enter the elements to second matrix\n");
+    	for(i=0;i<r2;i++)
+    	{	
+      	for(j=0;j<c2;j++)
+        	{
+         	scanf("%d",&sp2[i][j]);
+        	}
+    	}
+    
+    	printf("First Sparse Matrix is:\n");
+    	for(i=0;i<r1;i++)
+    	{
+      	for(j=0;j<c1;j++)
+        {
+            printf(" %d ",sp1[i][j]);
+        }
+        printf("\n");
+    	}	
+
+    	printf("Second Sparse Matrix is:\n");
+    	for(i=0;i<r2;i++)
+    	{
+      	for(j=0;j<c2;j++)
+         {
+         	printf(" %d ",sp2[i][j]);
+         }
+         printf("\n");
+    	}
+      
+   	for(i=0;i<r1;i++)
+    	{
+      	for(j=0;j<c1;j++)
+         {
+         	if(sp1[i][j]!=0)
+            {
+                    count1=count1+1;
+            }
+         }
+      }
+      int t1[count1+1][3];
+      t1[0][0]=r1;
+      t1[0][1]=c1;
+      t1[0][2]=count1;
+      k=1;
+    	for(i=0;i<r1;i++)
+    	{
+        for(j=0;j<c1;j++)
+        {
+            if(sp1[i][j]!=0)
+            {
+                t1[k][0]=i;
+                t1[k][1]=j;
+                t1[k][2]=sp1[i][j];
+                k++;
+            }
+        }
+     	}
+     	
+     	for(i=0;i<r2;i++)
+    	{
+      	for(j=0;j<c2;j++)
+         {
+         	if(sp2[i][j]!=0)
+            {
+                    count2=count2+1;
+            }
+         }
+      }
+      int t2[count2+1][3];
+      t2[0][0]=r2;
+      t2[0][1]=c2;
+      t2[0][2]=count2;
+      k=1;
+    	for(i=0;i<r2;i++)
+    	{
+        for(j=0;j<c2;j++)
+        {
+            if(sp2[i][j]!=0)
+            {
+                t2[k][0]=i;
+                t2[k][1]=j;
+                t2[k][2]=sp2[i][j];
+                k++;
+            }
+        }
+     	}
+     
+     
+    printf("First Triplet Representation is:\n");
+    for(i=0;i<=count1;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            printf(" %d ", t1[i][j]);
+        }
+        printf("\n");
+    }
+    
+    printf("Second Triplet Representation is:\n");
+    for(i=0;i<=count2;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            printf(" %d ", t2[i][j]);
+        }
+        printf("\n");
+    }
+    
+    int t3[100][3];
+    i=j=k=1;
+    t3[0][0]=r1;
+    t3[0][1]=c1;
+    
+    while((i<=count1) && (j<=count2))
+    {
+    	if(t1[i][0]<t2[j][0])
+    	{
+    		t3[k][0]=t1[i][0];
+    		t3[k][1]=t1[i][1];
+    		t3[k][2]=t1[i][2];
+    		i++;
+    		k++;
+    	}
+    	else if(t2[j][0]<t1[i][0])
+    	{
+    		t3[k][0]=t2[j][0];
+    		t3[k][1]=t2[j][1];
+    		t3[k][2]=t2[j][2];
+    		j++;
+    		k++;
+      }
+		else if (t1[i][0]==t2[j][0] && t1[i][1]==t2[j][1])
+		{
+			t3[k][0]=t1[i][0];
+			t3[k][1]=t1[i][1];
+			t3[k][2]=t1[i][2]+t2[j][2];
+			i++;
+			j++;
+			k++;
+		}
+		else if(t1[i][0]==t2[j][0] && t1[i][1]<t2[j][1])
+		{
+			t3[k][0]=t1[i][0];
+    		t3[k][1]=t1[i][1];
+    		t3[k][2]=t1[i][2];
+    		i++;
+    		k++;
+		}
+		else if(t1[i][0]==t2[j][0] && t2[j][1]<t1[i][1])    
+		{
+			t3[k][0]=t2[j][0];
+    		t3[k][1]=t2[j][1];
+    		t3[k][2]=t2[j][2];
+    		j++;
+    		k++;
+		}
+    }
+    
+    while(i<=count1)
+    {
+    		t3[k][0]=t1[i][0];
+    		t3[k][1]=t1[i][1];
+    		t3[k][2]=t1[i][2];
+    		i++;
+    		k++;
+    }
+    
+    while(j<=count2)
+    {
+    		t3[k][0]=t2[j][0];
+    		t3[k][1]=t2[j][1];
+    		t3[k][2]=t2[j][2];
+    		j++;
+    		k++;
+    }
+    printf("Resultant:\n");
+    t3[0][2]=k-1;
+    for(i=0;i<k;i++)
+    {
+    	for(j=0;j<3;j++)
+    	{
+    		printf(" %d ",t3[i][j]);
+    	}
+    	printf("\n");
+    }
+    }
+   else
+   {
+  		printf("Addition not possible");  
+   }
+    
+    }
+
+
+/*
+Enter no of rows and columns of first matrix:3
+4
+Enter no of rows and columns of second matrix:3
+4
+Enter the elements to first matrix
+0 4 0 0
+0 0 7 0
+6 0 0 0
+Enter the elements to second matrix
+0 0 0 3
+1 0 0 0
+2 0 0 0
+First Sparse Matrix is:
+ 0  4  0  0 
+ 0  0  7  0 
+ 6  0  0  0 
+Second Sparse Matrix is:
+ 0  0  0  3 
+ 1  0  0  0 
+ 2  0  0  0 
+First Triplet Representation is:
+ 3  4  3 
+ 0  1  4 
+ 1  2  7 
+ 2  0  6 
+Second Triplet Representation is:
+ 3  4  3 
+ 0  3  3 
+ 1  0  1 
+ 2  0  2 
+Resultant:
+ 3  4  5 
+ 0  1  4 
+ 0  3  3 
+ 1  0  1 
+ 1  2  7 
+ 2  0  8 
+
+*/
+/*
+Enter no of rows and columns of first matrix:3
+4
+Enter no of rows and columns of second matrix:4
+3
+Addition not possible*/
+
+

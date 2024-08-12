@@ -1,0 +1,79 @@
+#include <stdio.h>
+void main()
+{
+    int r,c,sp[100][100],i,j,count=0,k=1;
+    printf("Enter no of rows and columns:");
+    scanf("%d%d",&r,&c);
+    printf("Enter the elements to matrix\n");
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            scanf("%d",&sp[i][j]);
+        }
+    }
+    printf("Sparse Matrix is:\n");
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            printf(" %d ",sp[i][j]);
+        }
+        printf("\n");
+    }
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            if(sp[i][j]!=0)
+            {
+                    count=count+1;
+            }
+        }
+    }
+    int a[count+1][3];
+    a[0][0]=r;
+    a[0][1]=c;
+    a[0][2]=count;
+    
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            if(sp[i][j]!=0)
+            {
+                a[k][0]=i;
+                a[k][1]=j;
+                a[k][2]=sp[i][j];
+                k++;
+            }
+        }
+    }
+    printf("Triplet Representation is:\n");
+    for(i=0;i<=count;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            printf(" %d ", a[i][j]);
+        }
+        printf("\n");
+    }
+    
+    
+}
+/*
+Enter no of rows and columns:2
+3
+Enter the elements to matrix
+0 0 1
+0 2 
+0
+Sparse Matrix is:
+ 0  0  1 
+ 0  2  0 
+Triplet Representation is:
+ 2  3  2 
+ 0  2  1 
+ 1  1  2
+ */
+
